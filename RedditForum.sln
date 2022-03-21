@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit", "Reddit\Reddit.csproj", "{7F77F1FA-7DD6-4522-9240-2F633F2A0E58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileData", "FileData\FileData.csproj", "{411FEE48-94F0-4651-B46A-ED6C90588ECE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileData", "FileData\FileData.csproj", "{1407AF8F-3962-4953-B1ED-C24238D92D9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,9 +20,9 @@ Global
 		{7F77F1FA-7DD6-4522-9240-2F633F2A0E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F77F1FA-7DD6-4522-9240-2F633F2A0E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F77F1FA-7DD6-4522-9240-2F633F2A0E58}.Release|Any CPU.Build.0 = Release|Any CPU
-		{411FEE48-94F0-4651-B46A-ED6C90588ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{411FEE48-94F0-4651-B46A-ED6C90588ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{411FEE48-94F0-4651-B46A-ED6C90588ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{411FEE48-94F0-4651-B46A-ED6C90588ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1407AF8F-3962-4953-B1ED-C24238D92D9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1407AF8F-3962-4953-B1ED-C24238D92D9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1407AF8F-3962-4953-B1ED-C24238D92D9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1407AF8F-3962-4953-B1ED-C24238D92D9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

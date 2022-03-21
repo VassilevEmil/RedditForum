@@ -1,14 +1,15 @@
 ﻿using System.Text.Json;
+using Domain.Models;
 
 
-namespace JsonDataAccess.Context;
+namespace FileData.DataAccess;
 
-public class JsonContext
+public class FileContext
 {
     private string forumPath = "forum.json";
 
-    private ForumContainer? forum;
-    public ForumContainer Forum
+    private Forum? forum;
+    public Forum Forum
     {
         get
         {
@@ -22,7 +23,7 @@ public class JsonContext
         private set{}
     }
 
-    public JsonContext()
+    public FileContext()
     {
         if (File.Exists(forumPath))
         {
@@ -36,14 +37,14 @@ public class JsonContext
 
     private void CreateFile()
     {
-        forum = new ForumContainer();
+        forum = new Forum();
         Task.FromResult(SaveChangesAsync());
     }
 
     private void LoadData()
     {
         string forumAsJson = File.ReadAllText(forumPath);
-        forum = JsonSerializer.Deserialize<ForumContainer>(forumAsJson)!;
+        forum = JsonSerializer.Deserialize<Forum>(forumAsJson)!;
     }
 
     public async Task SaveChangesAsync()

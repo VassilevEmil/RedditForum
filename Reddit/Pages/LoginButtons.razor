@@ -1,0 +1,36 @@
+﻿@page "/LoginButtons"
+@using Reddit.Authentication
+@using Domain.Contracts
+@inject NavigationManager navMgr
+@inject IAuthService authService
+@inject IUserService userService
+
+
+<AuthorizeView>
+    <Authorized>
+        <img class="icon" src="img/Logout.png" @onclick="Logout"/>
+    </Authorized>
+    <NotAuthorized>
+        <img class="icon" src="img/Login.png" @onclick="Login"/>
+        <img class="icon" src="img/Login.png" @onclick="Register"/>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+    private void Login()
+    {
+        navMgr.NavigateTo("/Login");
+    }
+
+    private async Task Logout()
+    {
+        await authService.LogoutAsync();
+        navMgr.NavigateTo("/");
+    }
+
+    private void Register()
+    {
+        navMgr.NavigateTo("/Register");
+    }
+}

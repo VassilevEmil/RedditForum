@@ -1,0 +1,96 @@
+﻿@page "/Post"
+@using Reddit.Authentication
+@using BlazorApp1.Services
+@using Domain.Contracts
+@using Domain.Models
+@inject IAuthService authService
+@inject NavigationManager navMgr
+@inject IUserService userService
+
+
+<AuthorizeView>
+    <NotAuthorized>
+        <div class="card">
+            <h3> In order to be able to Post, you need to be logged in</h3>
+            <h3>Dont have an account? </h3>
+              </div>
+            
+          <!--  <a href="Login.razor" click here to create one!></a> -->
+            
+             <div class="field">
+                            <button class="loginbtn" @onclick="LoginAsync">Log in</button>
+                            <button class="registerbtn" @onclick="Register">Register</button>
+            
+                        </div>
+            <!--
+            <div class="field">
+                <label>User name:</label>
+                <input type="text" @bind="userName"/>
+            </div>
+            <div class="field">
+                <label style="text-align: center">Password:</label>
+                <input type="password" @bind="password"/>
+            </div>
+            @if (!string.IsNullOrEmpty(errorLabel))
+            {
+                <div class="field">
+                    <label style="color: red">
+                        @errorLabel
+                    </label>
+                </div>
+            }
+            -->
+           
+
+            
+      
+           
+    </NotAuthorized>
+
+<Authorized>
+      <div class="container">
+               <div class="row">
+                   <div class="col">
+                       <h1 id="title">Most Recent</h1>
+                   </div>
+               </div>
+           </div>
+</Authorized>
+
+</AuthorizeView>
+
+@code {
+    
+    private string userName;
+    private string password;
+    private string errorLabel;
+
+    private async Task LoginAsync()
+    {
+        errorLabel = "";
+        try
+        {
+            await authService.LoginAsync(userName, password);
+            navMgr.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            errorLabel = $"Error: {e.Message}";
+        }
+    }
+
+    private async Task Register()
+    {
+        User user = new User();
+        
+        try
+        {
+            await userService.AddUser(user);
+        }
+        catch(Exception e)
+        {
+            errorLabel = $"Error: {e.Message}";
+        }
+    }
+    
+}
