@@ -57,7 +57,7 @@
         }
         catch (Exception e)
         {
-            errorLabel = $"Error: {e.Message}";
+            errorLabel = $"Error: {e.Message} {e.StackTrace}";
         }
     }
 
@@ -67,7 +67,7 @@
         
         try
         {
-            //await userService.AddUser(user);
+            await userService.AddUser(user);
         }
         catch(Exception e)
         {

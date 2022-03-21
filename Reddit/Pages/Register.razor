@@ -1,17 +1,79 @@
 ﻿@page "/Register"
 @using Reddit.Authentication
+@using Domain.Models
+@using Domain.Contracts
 @inject IAuthService authService
 @inject NavigationManager navMgr
+@inject IUserService userService
 
-<h3>Register</h3>
+
+<AuthorizeView>
+    <NotAuthorized>
+     <!-- <form action=""> -->
+     <div class="container">
+         <h1>Register</h1>
+         <p>Please fill in this form to create an account.</p>
+         <hr>
+      
+         <label for="text"><b>Username</b></label>
+         <input type="text" placeholder="Enter Username" @bind="user.UserName" name="Username" id="Username" required>
+      
+         <label for="psw"><b>Password</b></label>
+         <input type="password" placeholder="Enter Password" @bind="user.Password" name="psw" id="psw" required>
+      
+         <!--<label for="psw-repeat"><b>Repeat Password</b></label>
+         <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+         <hr>-->
+          
+         <!-- <button type="submit" class="registerbtn">Register</button> -->
+         <button class="btn btn-primary" @onclick="RegisterUser">Register</button>
+     </div>
+     @ErrorMessage
+      <!--
+      <div class="container signin">
+          <p>Already have an account? <a href="#">Sign in</a>.</p>
+      </div>
+      -->
+    <!--  </form> -->
+        
+    </NotAuthorized>
+    <Authorized>
+    
+    <!--<div class="card">
+        //   <h3>Hello, @context.User.Identity.Name</h3>
+        //  </div>-->
+    </Authorized> 
+    
+</AuthorizeView>
+
+
 
 @code {
 
-    private string FirstName; //{ get; set; }
-    private string LastName; // {get; set;}
-    private string Password;
+    private User? user = new User();
+    private string ErrorMessage;
 
-   /* public async Task<RegisterRequest> Registration (RegisterRequest parameter)
+    private async Task RegisterUser()
+    {
+        try
+        {
+                user.Role = "User";
+                user.BirthDate = DateTime.Today;
+                await userService.AddUser(user);
+                navMgr.NavigateTo("/");
+            
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = $"Error:{e.Message}";
+        }
+    }
+
+    //  private string FirstName; //{ get; set; }
+    // private string LastName; // {get; set;}
+    // private string Password;
+
+    /* public async Task<RegisterRequest> Registration (RegisterRequest parameter)
     {
         var user = new User();
         user.Name = parameter.UserName;
@@ -21,7 +83,7 @@
     }
     
     */
-    
+
 
 
 }

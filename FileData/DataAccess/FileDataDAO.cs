@@ -1,8 +1,6 @@
 ﻿using Domain.Contracts;
 using Domain.Models;
 
-
-
 namespace FileData.DataAccess;
 
 public class FileDataDAO : IUserService
@@ -15,29 +13,44 @@ public class FileDataDAO : IUserService
     }
 
 
-    public Task<User> GetUserAsync(string username)
+    public async Task<ICollection<User>> GetUserAsync(string username)
     {
-        throw new NotImplementedException();
+        return fileContext.Forum.Users;
     }
 
-    public Task<User> GetUser(string username)
+    public async Task<User> GetUser(string username)
     {
-        throw new NotImplementedException();
+       User user =  fileContext.Forum.Users.First(u => u.UserName == username);
+       return user;
     }
 
-    public Task<User> AddUser(User user)
-    {
-        throw new NotImplementedException();
+    public async Task<User> AddUser(User user)
+    { 
+        if (fileContext.Forum.Users.Any(t=>t.UserName.Equals(user.UserName)))
+        {
+            throw new Exception("Username already in use!");
+        }
+        else
+        {
+            
+            fileContext.Forum.Users.Add(user);
+            await fileContext.SaveChangesAsync();
+            return user;
+        }
+
     }
 
-    public Task DeleteUser(string id)
+    public async Task DeleteUser(string id)
     {
-        throw new NotImplementedException();
+        User user = fileContext.Forum.Users.First(u => u.Id == id);
+        fileContext.Forum.Users.Remove(user);
+        fileContext.SaveChangesAsync();
     }
 
-    public Task<User> GetUserById(string id)
+    public async Task<User> GetUserById(string id)
     {
-        throw new NotImplementedException();
+        User user = fileContext.Forum.Users.First(t => t.Id == id);
+        return user;
     }
 }
     

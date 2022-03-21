@@ -1,4 +1,13 @@
 {
-  "SubForums": null,
-  "Users": null
+  "SubForums": [],
+  "Users": [
+    {
+      "Id": "b79M76c76aKXuUpSrG04",
+      "UserName": "admin",
+      "Password": "admin",
+      "Role": "User",
+      "City": "",
+      "BirthDate": "2022-03-21T00:00:00+01:00"
+    }
+  ]
 }
