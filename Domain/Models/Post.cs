@@ -12,7 +12,7 @@ public class Post
 
     public Post()
     {
-        Comments = new List<Comment>();
+       Comments = new List<Comment>();
         Id = RandomIDGenerator.Generate(20);
         Header=String.Empty;
         Body=String.Empty;

@@ -8,6 +8,88 @@
       "Role": "User",
       "City": "",
       "BirthDate": "2022-03-21T00:00:00+01:00"
+    },
+    {
+      "Id": "bIA4f6402fCUwD7h19C4",
+      "UserName": "",
+      "Password": "",
+      "Role": "",
+      "City": "",
+      "BirthDate": "0001-01-01T00:00:00"
+    },
+    {
+      "Id": "g1R291tIZFo2y61CDFZ2",
+      "UserName": "emo",
+      "Password": "emo",
+      "Role": "User",
+      "City": "",
+      "BirthDate": "2022-03-21T00:00:00+01:00"
+    }
+  ],
+  "AddPost": [
+    {
+      "Id": "y3nYfQSVMYNXO8XTZHDO",
+      "Header": "_forumsd",
+      "Body": "dsad",
+      "Votes": [],
+      "Comments": [],
+      "WrittenBy": {
+        "Id": "Stwv8xB27LkMcwtR0O10",
+        "UserName": "",
+        "Password": "",
+        "Role": "",
+        "City": "",
+        "BirthDate": "0001-01-01T00:00:00"
+      },
+      "date_posted": "0001-01-01T00:00:00"
+    },
+    {
+      "Id": "v9vqB177054d7m9haWDb",
+      "Header": "_forumsd",
+      "Body": "dsad",
+      "Votes": [],
+      "Comments": [],
+      "WrittenBy": {
+        "Id": "wC24a6Fysne7Mfya5p12",
+        "UserName": "",
+        "Password": "",
+        "Role": "",
+        "City": "",
+        "BirthDate": "0001-01-01T00:00:00"
+      },
+      "date_posted": "0001-01-01T00:00:00"
+    },
+    {
+      "Id": "B3VvhMWDYKMrg4oKeR6U",
+      "Header": "_forumsd",
+      "Body": "dsad",
+      "Votes": [],
+      "Comments": [],
+      "WrittenBy": {
+        "Id": "c06s4QXuB81k9hYwmC6v",
+        "UserName": "",
+        "Password": "",
+        "Role": "",
+        "City": "",
+        "BirthDate": "0001-01-01T00:00:00"
+      },
+      "date_posted": "0001-01-01T00:00:00"
+    },
+    {
+      "Id": "5j7xK6awEXJTku94I4Zl",
+      "Header": "kk",
+      "Body": "kn",
+      "Votes": [],
+      "Comments": [],
+      "WrittenBy": {
+        "Id": "Ze0rQr64hq9iIld542u4",
+        "UserName": "",
+        "Password": "",
+        "Role": "",
+        "City": "",
+        "BirthDate": "0001-01-01T00:00:00"
+      },
+      "date_posted": "0001-01-01T00:00:00"
     }
   ]
 }

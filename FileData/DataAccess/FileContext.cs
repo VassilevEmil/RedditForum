@@ -8,6 +8,7 @@ public class FileContext
     private string forumPath = "forum.json";
 
     private Forum? forum;
+   // private Post? post;
     public Forum Forum
     {
         get
@@ -21,6 +22,8 @@ public class FileContext
         }
         private set{}
     }
+
+  
 
     public FileContext()
     {

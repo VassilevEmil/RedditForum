@@ -3,7 +3,7 @@ using Domain.Models;
 
 namespace FileData.DataAccess;
 
-public class FileDataDAO : IUserService
+public class FileDataDAO : IUserService, IForum
 {
     private FileContext fileContext;
 
@@ -52,5 +52,19 @@ public class FileDataDAO : IUserService
         User user = fileContext.Forum.Users.First(t => t.Id == id);
         return user;
     }
+
+    
+   public async Task<Post> CreatePost(Post post){
+       fileContext.Forum.AddPost.Add(post);
+       fileContext.SaveChangesAsync();
+       return post;
+   }
+
+   public async Task<ICollection<Post>> GetPosts()
+   {
+       return fileContext.Forum.AddPost;
+   }
+   
+  
 }
     

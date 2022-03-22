@@ -1,0 +1,194 @@
+﻿@page "/AddPost"
+@using Reddit.Authentication
+@using Domain.Contracts
+@using Domain.Models
+@using Microsoft.AspNetCore.Mvc
+@inject IAuthService authService
+@inject NavigationManager navMgr
+@inject IUserService userService
+@inject IForum _forum
+
+
+
+
+<AuthorizeView>
+    <NotAuthorized>
+       
+	    <section class="login-block">
+            <div class="container">
+            <div class="row">
+	            <div class="col-md-4 login-sec">
+		            <h2 class="text-center">Login Now</h2>
+		            <form class="login-form">
+			            <div class="form-group">
+				            <label for="exampleInputEmail1" class="text-uppercase">Username</label>
+				            <input type="text" @bind="userName" class="form-control" placeholder="">
+            
+			            </div>
+			            <div class="form-group">
+				            <label for="exampleInputPassword1" class="text-uppercase">Password</label>
+				            <input type="password" @bind="password" class="form-control" placeholder="">
+			            </div>
+			            <div class="form-check">
+				            <label class="form-check-label">
+					            <input type="checkbox" class="form-check-input">
+					            <small>Remember Me</small>
+				            </label>
+				            <button type="submit" class="btn btn-login float-right" @onclick="LoginAsync">Log in</button>
+			            </div>
+          
+		            </form>
+		            <div class="copy-text">Dont have an account? Create one now! <i class="fa fa-heart"></i> <a href="/Register">Register</a></div>
+	            </div>
+	            <div class="col-md-8 banner-sec">
+		            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+			            <ol class="carousel-indicators">
+				            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+				            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+				            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+			            </ol>
+			            <div class="carousel-inner" role="listbox">
+				            <div class="carousel-item active">
+					            <img class="d-block img-fluid" src="https://static.pexels.com/photos/33972/pexels-photo.jpg" alt="First slide">
+					            <div class="carousel-caption d-none d-md-block">
+						            <div class="banner-text">
+							            <h2>Your new Forum</h2>
+							            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+						            </div>	
+					            </div>
+				            </div>
+			            </div>
+		            </div>
+	            </div>
+            </div>
+</div>            
+        </section>
+	    <!--
+	    
+	    //
+	     <div class="card">
+                    <h3> In order to be able to Post, you need to be logged in</h3>
+                    <h3>Dont have an account? </h3>
+                      </div>
+                    
+                    <a href="Login.razor" click here to create one!></a> 
+                    
+                     <div class="field">
+                                    
+                         <button class="registerbtn" @onclick="Register">Register</button>
+                        
+                    
+                                </div>
+	    //
+	    
+	    <div class="field">
+                <label>User name:</label>
+                <input type="text" @bind="userName"/>
+            </div>
+            <div class="field">
+                <label style="text-align: center">Password:</label>
+                <input type="password" @bind="password"/>
+            </div>
+            @if (!string.IsNullOrEmpty(errorLabel))
+            {
+                <div class="field">
+                    <label style="color: red">
+                        @errorLabel
+                    </label>
+                </div>
+            }
+            -->
+          
+    </NotAuthorized>
+
+    <Authorized>
+        
+       <div class="container">
+       	<div class="row">
+            <div class="col-md-8 col-md-offset-2">
+	            <h1>Create a post</h1>
+	            <div class="form-group">
+		            <label for="title">Title <span class="require">*</span></label>
+		            <input type="text" @bind="postTitle" class="form-control" name="title" />
+	            </div>
+	            <div class="form-group">
+           		        <label for="description">Description</label>
+           		        <textarea rows="5" @bind="postBody" class="form-control" name="description" ></textarea>
+           		    </div>
+	                
+           		    <div class="form-group">
+           		        <button type="submit" class="btn btn-primary" @onclick="Create">
+           		            Create
+           		        </button>
+           		        <button class="btn btn-default" @onclick="Cancel">
+           		            Cancel
+           		        </button>
+           		    </div>
+            </div>
+        </div>
+       </div>
+	    
+    </Authorized>
+</AuthorizeView>
+
+@code {
+	private string postTitle;
+	private string postBody;
+	
+    private string userName;
+    private string password;
+    private string errorLabel;
+    
+   // private Post post = new Post();
+
+	
+    private async Task LoginAsync()
+    {
+        errorLabel = "";
+        try
+        {
+            await authService.LoginAsync(userName, password);
+            navMgr.NavigateTo("/Home");
+        }
+        catch (Exception e)
+        {
+            errorLabel = $"Error: {e.Message}";
+	        Console.WriteLine(errorLabel);
+        }
+        
+    }
+	
+    private async Task Register()
+    {
+       
+        navMgr.NavigateTo("/Register");
+    }
+
+    private async Task Create()
+    {
+     
+
+        try
+        {
+	        Post post = new Post();
+	        post.Header = postTitle;
+	        post.Body = postBody;
+            await _forum.CreatePost(post);
+	        
+        }
+        catch (Exception e)
+        {
+            errorLabel = $"Error: {e.Message} {e.StackTrace}";
+	        Console.WriteLine(errorLabel);
+        }
+    }
+    
+    
+	private void Cancel()
+	{
+		navMgr.NavigateTo("/Home");
+	}
+
+	
+
+}
