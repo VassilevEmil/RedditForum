@@ -178,6 +178,22 @@
         "BirthDate": "0001-01-01T00:00:00"
       },
       "date_posted": "0001-01-01T00:00:00"
+    },
+    {
+      "Id": "5094g75tSf2u8PrD8XiW",
+      "Header": "Recording",
+      "Body": "Hello from recording",
+      "Votes": [],
+      "Comments": [],
+      "WrittenBy": {
+        "Id": "EGN9w0FYP3myw97W5yhT",
+        "UserName": "",
+        "Password": "",
+        "Role": "",
+        "City": "",
+        "BirthDate": "0001-01-01T00:00:00"
+      },
+      "date_posted": "0001-01-01T00:00:00"
     }
   ]
 }
