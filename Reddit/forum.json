@@ -24,6 +24,14 @@
       "Role": "User",
       "City": "",
       "BirthDate": "2022-03-21T00:00:00+01:00"
+    },
+    {
+      "Id": "CJt46c9426M3CVgly66f",
+      "UserName": "eee",
+      "Password": "eee",
+      "Role": "User",
+      "City": "",
+      "BirthDate": "2022-03-27T00:00:00+01:00"
     }
   ],
   "AddPost": [
@@ -83,6 +91,86 @@
       "Comments": [],
       "WrittenBy": {
         "Id": "Ze0rQr64hq9iIld542u4",
+        "UserName": "",
+        "Password": "",
+        "Role": "",
+        "City": "",
+        "BirthDate": "0001-01-01T00:00:00"
+      },
+      "date_posted": "0001-01-01T00:00:00"
+    },
+    {
+      "Id": "2Qjkj6c8pTD6S3oAOy50",
+      "Header": "daad",
+      "Body": "fdsasd",
+      "Votes": [],
+      "Comments": [],
+      "WrittenBy": {
+        "Id": "n5eUTfc9WmU660kwHzT3",
+        "UserName": "",
+        "Password": "",
+        "Role": "",
+        "City": "",
+        "BirthDate": "0001-01-01T00:00:00"
+      },
+      "date_posted": "0001-01-01T00:00:00"
+    },
+    {
+      "Id": "17gnZj9A25lMHHC6xYY4",
+      "Header": "daad",
+      "Body": "fdsasd",
+      "Votes": [],
+      "Comments": [],
+      "WrittenBy": {
+        "Id": "J898SUx2IA5AsFY73Eks",
+        "UserName": "",
+        "Password": "",
+        "Role": "",
+        "City": "",
+        "BirthDate": "0001-01-01T00:00:00"
+      },
+      "date_posted": "0001-01-01T00:00:00"
+    },
+    {
+      "Id": "vU9g7VzhblrHSsLH9x1h",
+      "Header": "hahahah",
+      "Body": "ahahhaha",
+      "Votes": [],
+      "Comments": [],
+      "WrittenBy": {
+        "Id": "wbu6LokFz5kfHttQGu8I",
+        "UserName": "",
+        "Password": "",
+        "Role": "",
+        "City": "",
+        "BirthDate": "0001-01-01T00:00:00"
+      },
+      "date_posted": "0001-01-01T00:00:00"
+    },
+    {
+      "Id": "7b5u0Hpj2DTTUzkq3i73",
+      "Header": "hahahah",
+      "Body": "ahahhaha",
+      "Votes": [],
+      "Comments": [],
+      "WrittenBy": {
+        "Id": "8BK09m1Cs3BWt03rnbb9",
+        "UserName": "",
+        "Password": "",
+        "Role": "",
+        "City": "",
+        "BirthDate": "0001-01-01T00:00:00"
+      },
+      "date_posted": "0001-01-01T00:00:00"
+    },
+    {
+      "Id": "oj902r7YgjjvR9ca4x6M",
+      "Header": "blazor",
+      "Body": "bla bla bla",
+      "Votes": [],
+      "Comments": [],
+      "WrittenBy": {
+        "Id": "aM7b1a0KjAE7iK0v5E2u",
         "UserName": "",
         "Password": "",
         "Role": "",
