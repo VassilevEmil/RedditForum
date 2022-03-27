@@ -64,7 +64,11 @@ public class FileDataDAO : IUserService, IForum
    {
        return fileContext.Forum.AddPost;
    }
-   
-  
+
+   public async Task<Post> GetPost(string Id)
+   {
+       Post post = fileContext.Forum.AddPost.First(t => t.Id == Id);
+       return post;
+   }
 }
     

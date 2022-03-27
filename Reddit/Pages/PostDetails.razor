@@ -1,0 +1,36 @@
+﻿@page "/Home/{Id}"
+@using Domain.Models
+@using Domain.Contracts
+@inject IForum forum 
+
+
+<h3>PostDetails @_post.Id</h3>
+
+@_post.date_posted
+@_post.Body
+@_post.Header
+@_post.Votes
+
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private Post? _post;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _post = await forum.GetPost(Id);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+    
+}

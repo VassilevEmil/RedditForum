@@ -2,6 +2,7 @@
 @using Domain.Models
 @using Domain.Contracts
 @inject IForum forum
+@inject NavigationManager navMgr
 
 
 <h3>Discussion</h3>
@@ -17,21 +18,18 @@
                             <img class="card-img-top" src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
                         </a>
                         <ul class="list-inline mt-3">
-
                             <li class="list-inline-item"><i class="fas fa-user"></i>@item.Header</li>
                             <li class="list-inline-item"><i class="far fa-clock"></i>@item.date_posted</li>
                         </ul>
                         <hr>
                         <p class="lead">@item.Body</p>
-                        <a class="btn btn-outline-dark my-2" href="" role="button">Read more</a>
+                        <a class="btn btn-outline-dark my-2" @onclick="@(() => navMgr.NavigateTo("/Home/"+item.Id))" role="button">Read more</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 }
-
-
 @code {
 
 
@@ -49,6 +47,11 @@
         {
             errorLabel = $"Error: {e.Message}";
         }
+    }
+
+    private async Task Visit(string itemId)
+    {
+        navMgr.NavigateTo($"Home/{itemId}");
     }
 
 }
