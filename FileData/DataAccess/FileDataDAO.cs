@@ -13,7 +13,7 @@ public class FileDataDAO : IUserService, IForum
     }
 
 
-    public async Task<ICollection<User>> GetUserAsync(string username)
+    public async Task<ICollection<User>> GetUserAsync()
     {
         return fileContext.Forum.Users;
     }
@@ -53,8 +53,19 @@ public class FileDataDAO : IUserService, IForum
         return user;
     }
 
-    
-   public async Task<Post> CreatePost(Post post){
+    public async Task Update(User user)
+    {
+        User userUpdate = fileContext.Forum.Users.First(t => t.Id.Equals(user.Id));
+        userUpdate.UserName = user.UserName;
+        userUpdate.Password = user.Password;
+        userUpdate.Role = user.Role;
+        userUpdate.City = user.City;
+        userUpdate.BirthDate = user.BirthDate;
+        fileContext.SaveChangesAsync();
+    }
+
+
+    public async Task<Post> CreatePost(Post post){
        fileContext.Forum.AddPost.Add(post);
        fileContext.SaveChangesAsync();
        return post;
@@ -69,6 +80,16 @@ public class FileDataDAO : IUserService, IForum
    {
        Post post = fileContext.Forum.AddPost.First(t => t.Id == Id);
        return post;
+   }
+
+   public Task DeletePost(string id)
+   {
+       throw new NotImplementedException();
+   }
+
+   public Task UpdatePost(Post post)
+   {
+       throw new NotImplementedException();
    }
 }
     

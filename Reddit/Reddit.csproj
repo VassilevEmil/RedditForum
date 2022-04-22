@@ -16,6 +16,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Domain\Domain.csproj" />
       <ProjectReference Include="..\FileData\FileData.csproj" />
+      <ProjectReference Include="..\RESTClient\RESTClient.csproj" />
     </ItemGroup>
 
 </Project>
