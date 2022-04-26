@@ -53,12 +53,12 @@ public class UserController : ControllerBase
     [HttpGet]
     [Route("username/{username}")]
 
-    public async Task<ActionResult<ICollection<User>>> GetUserByUsername(string username)
+    public async Task<ActionResult<ICollection<User>>> GetUserByUsername([FromRoute]string username)
     {
         try
         {
             User user = await userService.GetUser(username);
-            return Ok(username);
+            return Ok(user);
         }
         catch (Exception e)
         {
@@ -92,6 +92,22 @@ public class UserController : ControllerBase
         {
             await userService.Update(user);
             return Ok();
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("{id}")]
+
+    public async Task<ActionResult<ICollection<User>>> GetUserById([FromRoute]string id)
+    {
+        try
+        {
+            User user = await userService.GetUserById(id);
+            return Ok(user);
         }
         catch (Exception e)
         {

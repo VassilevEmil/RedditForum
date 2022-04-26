@@ -1,0 +1,55 @@
+{
+  "SubForums": [],
+  "Users": [
+    {
+      "Id": "yet5cP5dDwjkrni4796Z",
+      "UserName": "Test",
+      "Password": "test",
+      "Role": "string",
+      "City": "string",
+      "BirthDate": "2022-04-26T16:49:40.081Z"
+    },
+    {
+      "Id": "6e3320p1wImPFH7Fs1YJ",
+      "UserName": "admin",
+      "Password": "admin",
+      "Role": "User",
+      "City": "",
+      "BirthDate": "2022-04-26T00:00:00+02:00"
+    }
+  ],
+  "AddPost": [
+    {
+      "Id": "1aU6H5FEtc0ouOhh7Ga0",
+      "Header": "ssss",
+      "Body": "ssss",
+      "Votes": [],
+      "Comments": [],
+      "WrittenBy": {
+        "Id": "mb56A8i1SAJcm98yTH3w",
+        "UserName": "",
+        "Password": "",
+        "Role": "",
+        "City": "",
+        "BirthDate": "0001-01-01T00:00:00"
+      },
+      "date_posted": "0001-01-01T00:00:00"
+    },
+    {
+      "Id": "8bXa8zugMH8kVVFloF4u",
+      "Header": "re",
+      "Body": "fdfer",
+      "Votes": [],
+      "Comments": [],
+      "WrittenBy": {
+        "Id": "5oYe8th3TfDyz4o389YV",
+        "UserName": "",
+        "Password": "",
+        "Role": "",
+        "City": "",
+        "BirthDate": "0001-01-01T00:00:00"
+      },
+      "date_posted": "0001-01-01T00:00:00"
+    }
+  ]
+}

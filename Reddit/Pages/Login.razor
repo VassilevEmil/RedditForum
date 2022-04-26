@@ -76,7 +76,7 @@
         try
         {
             await authService.LoginAsync(userName, password);
-            navMgr.NavigateTo("/");
+            navMgr.NavigateTo("/",true);
         }
         catch (Exception e)
         {

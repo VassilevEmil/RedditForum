@@ -1,5 +1,4 @@
-﻿using BlazorApp1.Services;
-using Domain.Contracts;
+﻿using Domain.Contracts;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -79,6 +78,21 @@ public class ForumController : ControllerBase
         {
             await iForum.UpdatePost(post);
             return Ok("Updated " + post);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<ActionResult<Post>> GetById([FromRoute]string id)
+    {
+        try
+        {
+            Post posts = await iForum.GetPost(id);
+            return Ok(posts);
         }
         catch (Exception e)
         {

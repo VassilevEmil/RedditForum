@@ -21,7 +21,7 @@
     [Parameter]
     public string Id { get; set; }
 
-    private Post? _post;
+    private Post _post = new Post();
 
 
     protected override async Task OnInitializedAsync()

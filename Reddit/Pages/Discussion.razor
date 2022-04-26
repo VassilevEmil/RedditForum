@@ -35,8 +35,8 @@
 @code {
 
 
-    private Post post;
-    private ICollection<Post>? posts;
+    private Post post = new Post();
+    private ICollection<Post>? posts = new List<Post>();
     private string errorLabel;
     
     protected override async Task OnInitializedAsync()

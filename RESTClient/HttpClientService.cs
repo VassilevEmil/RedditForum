@@ -28,9 +28,21 @@ public class HttpClientSerivce : IUserService,  IForum
 
     }
 
-    public Task<User> GetUser(string username)
+    public async Task<User> GetUser(string username)
     {
-        throw new NotImplementedException();
+        try
+        {
+            string client = await ServerAPI.getContent(Methods.Get, $"/user/username/{username}");
+            User user = JsonSerializer.Deserialize<User>(client, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            })!;
+            return user;
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
     }
 
     public async Task<User> AddUser(User user)
@@ -98,7 +110,7 @@ public class HttpClientSerivce : IUserService,  IForum
     {
         try
         {
-            string content = await ServerAPI.getContent(Methods.Post, "/post", post);
+            string content = await ServerAPI.getContent(Methods.Post, "/forum", post);
             Post create = JsonSerializer.Deserialize<Post>(content, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -115,7 +127,7 @@ public class HttpClientSerivce : IUserService,  IForum
     {
         try
         {
-            string post = await ServerAPI.getContent(Methods.Get, "allposts");
+            string post = await ServerAPI.getContent(Methods.Get, "/forum");
             ICollection<Post> forum = JsonSerializer.Deserialize<ICollection<Post>>(post, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -134,7 +146,7 @@ public class HttpClientSerivce : IUserService,  IForum
     {
         try
         {
-            string content = await ServerAPI.getContent(Methods.Get, $"/post/{Id}");
+            string content = await ServerAPI.getContent(Methods.Get, $"/forum/{Id}");
             Post post = JsonSerializer.Deserialize<Post>(content, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -152,7 +164,7 @@ public class HttpClientSerivce : IUserService,  IForum
     {
         try
         {
-            string content = await ServerAPI.getContent(Methods.Delete, $"/post/{id}");
+            string content = await ServerAPI.getContent(Methods.Delete, $"/forum/{id}");
         }
         catch (Exception e)
         {
@@ -164,7 +176,7 @@ public class HttpClientSerivce : IUserService,  IForum
     {
         try
         {
-            string content = await ServerAPI.getContent(Methods.Patch, $"/post", post);
+            string content = await ServerAPI.getContent(Methods.Patch, $"/forum", post);
         }
         catch (Exception e)
         {

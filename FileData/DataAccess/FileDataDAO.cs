@@ -1,9 +1,10 @@
 ﻿using Domain.Contracts;
 using Domain.Models;
+using Application.DAOInterface;
 
 namespace FileData.DataAccess;
 
-public class FileDataDAO : IUserService, IForum
+public class FileDataDAO : IForumDAO
 {
     private FileContext fileContext;
 
@@ -12,6 +13,11 @@ public class FileDataDAO : IUserService, IForum
         this.fileContext = fileContext;
     }
 
+
+    public Task<Post> Update(Post post)
+    {
+        throw new NotImplementedException();
+    }
 
     public async Task<ICollection<User>> GetUserAsync()
     {
@@ -32,7 +38,6 @@ public class FileDataDAO : IUserService, IForum
         }
         else
         {
-            
             fileContext.Forum.Users.Add(user);
             await fileContext.SaveChangesAsync();
             return user;
@@ -67,7 +72,7 @@ public class FileDataDAO : IUserService, IForum
 
     public async Task<Post> CreatePost(Post post){
        fileContext.Forum.AddPost.Add(post);
-       fileContext.SaveChangesAsync();
+       await fileContext.SaveChangesAsync();
        return post;
    }
 
@@ -80,6 +85,11 @@ public class FileDataDAO : IUserService, IForum
    {
        Post post = fileContext.Forum.AddPost.First(t => t.Id == Id);
        return post;
+   }
+
+   public Task<Post> Delete(string id)
+   {
+       throw new NotImplementedException();
    }
 
    public Task DeletePost(string id)
