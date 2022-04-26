@@ -3,7 +3,7 @@ using Domain.Contracts;
 using FileData.DataAccess;
 
 using Reddit.Authentication;
-
+using RESTClient;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +17,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<FileContext>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStateProvider>();
 builder.Services.AddScoped<IAuthService, AuthServiceImpl>();
-builder.Services.AddScoped<IUserService, FileDataDAO>();
-builder.Services.AddScoped<IForum, FileDataDAO>();
+builder.Services.AddScoped<IUserService, HttpClientSerivce>();
+builder.Services.AddScoped<IForum, HttpClientSerivce>();
 
 
 
