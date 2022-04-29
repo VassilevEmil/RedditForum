@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Application.DAOInterface;
 using Domain.Contracts;
 using Domain.Models;
@@ -22,6 +23,7 @@ public class ForumSqliteDAO : IForumDAO
         {
             Post? create = post;
             create.WrittenBy = await context.Users.FirstOrDefaultAsync(p => p.Id.Equals(post.WrittenBy.Id));
+            
 
 
             await context.Posts.AddAsync(create);
@@ -63,10 +65,18 @@ public class ForumSqliteDAO : IForumDAO
 
     public async Task<Post> Update(Post post)
     {
-        Post update = await context.Posts.FirstOrDefaultAsync(t => t.Id.Equals(post));
-        context.Posts.Update(update);
-        await context.SaveChangesAsync();
-        return update;
+        try
+        {
+            Post? update = await context.Posts.FirstOrDefaultAsync(t => t.Id.Equals(post.Id));
+            context.Posts.Update(update);
+            await context.SaveChangesAsync();
+            return update;
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+       
     }
 
     public async Task<ICollection<User>> GetUserAsync()
