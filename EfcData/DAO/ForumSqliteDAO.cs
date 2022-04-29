@@ -1,64 +1,124 @@
-﻿using Application.DAOInterface;
+﻿using System.Diagnostics.CodeAnalysis;
+using Application.DAOInterface;
 using Domain.Contracts;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace EfcData;
 
 public class ForumSqliteDAO : IForumDAO
 {
-    public Task<Post> CreatePost(Post post)
+
+    private ForumContext context;
+
+    public ForumSqliteDAO(ForumContext context)
     {
-        throw new NotImplementedException();
+        this.context = context;
+    }
+    public async Task<Post> CreatePost(Post post)
+    {
+        try
+        {
+            Post? create = post;
+            create.WrittenBy = await context.Users.FirstOrDefaultAsync(p => p.Id.Equals(post.WrittenBy.Id));
+
+
+            await context.Posts.AddAsync(create);
+            await context.SaveChangesAsync();
+            return create;
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+      
     }
 
-    public Task<ICollection<Post>> GetPosts()
+    public async Task<ICollection<Post>> GetPosts()
     {
-        throw new NotImplementedException();
+        ICollection<Post> posts = await context.Posts.ToListAsync();
+        return posts;
     }
 
-    public Task<Post> GetPost(string Id)
+    public async Task<Post> GetPost(string Id)
     {
-        throw new NotImplementedException();
+        Post? post = await context.Posts.FindAsync(Id);
+        return post;
     }
 
-    public Task<Post> Delete(string id)
+    public async Task<Post> Delete(string id)
     {
-        throw new NotImplementedException();
+        Post? delete = await context.Posts.FindAsync(id);
+        if (delete is null)
+        {
+            throw new Exception($"Post with {id} cannot be found");
+        }
+
+        context.Posts.Remove(delete);
+        context.SaveChangesAsync();
+        return delete;
+
     }
 
-    public Task<Post> Update(Post post)
+    public async Task<Post> Update(Post post)
     {
-        throw new NotImplementedException();
+        Post update = await context.Posts.FirstOrDefaultAsync(t => t.Id.Equals(post));
+        context.Posts.Update(update);
+        await context.SaveChangesAsync();
+        return update;
     }
 
-    public Task<ICollection<User>> GetUserAsync()
+    public async Task<ICollection<User>> GetUserAsync()
     {
-        throw new NotImplementedException();
+        ICollection<User> users = await context.Users.ToListAsync();
+        return users;
     }
 
-    public Task<User> GetUser(string username)
+    public async Task<User> GetUser(string username)
     {
-        throw new NotImplementedException();
+        User? user = await context.Users.FirstOrDefaultAsync(t=>t.UserName.Equals(username));
+        return user;
     }
 
-    public Task<User> AddUser(User user)
+    public async Task<User> AddUser(User user)
     {
-        throw new NotImplementedException();
+        EntityEntry<User> add = await context.Users.AddAsync(user);
+        await context.SaveChangesAsync();
+        return add.Entity;
     }
 
-    public Task DeleteUser(string id)
+    public async Task DeleteUser(string id)
     {
-        throw new NotImplementedException();
+       
+            User? user = await context.Users.FindAsync();
+            if (user is null)
+            {
+                throw new Exception($"user with id {id} doesnt exist");
+            }
+
+            context.Users.Remove(user);
+            await context.SaveChangesAsync();
+        
+        
     }
 
-    public Task<User> GetUserById(string id)
+    public async Task<User> GetUserById(string id)
     {
-        throw new NotImplementedException();
+        User? user = await context.Users.FindAsync(id);
+        if (user is null)
+        {
+            throw new Exception($"user doesnt exist");
+        }
+
+        return user;
     }
 
-    public Task Update(User user)
+    public async Task Update(User user)
     {
-        throw new NotImplementedException();
+        User? update = await context.Users.FirstAsync(t => t.UserName.Equals(user));
+        context.Users.Update(update);
+        await context.SaveChangesAsync();
     }
 }
     

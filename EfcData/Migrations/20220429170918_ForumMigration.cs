@@ -5,12 +5,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EfcData.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class ForumMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "users",
+                name: "forums",
+                columns: table => new
+                {
+                    id = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_forums", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
@@ -18,30 +29,73 @@ namespace EfcData.Migrations
                     Password = table.Column<string>(type: "TEXT", nullable: false),
                     Role = table.Column<string>(type: "TEXT", nullable: false),
                     City = table.Column<string>(type: "TEXT", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    BirthDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Forumid = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_forums_Forumid",
+                        column: x => x.Forumid,
+                        principalTable: "forums",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "posts",
+                name: "SubForum",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    OwnedById = table.Column<string>(type: "TEXT", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Forumid = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubForum", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubForum_forums_Forumid",
+                        column: x => x.Forumid,
+                        principalTable: "forums",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_SubForum_Users_OwnedById",
+                        column: x => x.OwnedById,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Posts",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     Header = table.Column<string>(type: "TEXT", nullable: false),
                     Body = table.Column<string>(type: "TEXT", nullable: false),
                     WrittenById = table.Column<string>(type: "TEXT", nullable: true),
-                    date_posted = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    date_posted = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Forumid = table.Column<string>(type: "TEXT", nullable: true),
+                    SubForumId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_posts", x => x.Id);
+                    table.PrimaryKey("PK_Posts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_posts_users_WrittenById",
+                        name: "FK_Posts_forums_Forumid",
+                        column: x => x.Forumid,
+                        principalTable: "forums",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_Posts_SubForum_SubForumId",
+                        column: x => x.SubForumId,
+                        principalTable: "SubForum",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Posts_Users_WrittenById",
                         column: x => x.WrittenById,
-                        principalTable: "users",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
@@ -58,14 +112,14 @@ namespace EfcData.Migrations
                 {
                     table.PrimaryKey("PK_Comment", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_posts_PostId",
+                        name: "FK_Comment_Posts_PostId",
                         column: x => x.PostId,
-                        principalTable: "posts",
+                        principalTable: "Posts",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Comment_users_WrittenById",
+                        name: "FK_Comment_Users_WrittenById",
                         column: x => x.WrittenById,
-                        principalTable: "users",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -88,14 +142,14 @@ namespace EfcData.Migrations
                         principalTable: "Comment",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Vote_posts_PostId",
+                        name: "FK_Vote_Posts_PostId",
                         column: x => x.PostId,
-                        principalTable: "posts",
+                        principalTable: "Posts",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Vote_users_VoterId",
+                        name: "FK_Vote_Users_VoterId",
                         column: x => x.VoterId,
-                        principalTable: "users",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -111,9 +165,34 @@ namespace EfcData.Migrations
                 column: "WrittenById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_posts_WrittenById",
-                table: "posts",
+                name: "IX_Posts_Forumid",
+                table: "Posts",
+                column: "Forumid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_SubForumId",
+                table: "Posts",
+                column: "SubForumId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_WrittenById",
+                table: "Posts",
                 column: "WrittenById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubForum_Forumid",
+                table: "SubForum",
+                column: "Forumid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubForum_OwnedById",
+                table: "SubForum",
+                column: "OwnedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Forumid",
+                table: "Users",
+                column: "Forumid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vote_CommentId",
@@ -140,10 +219,16 @@ namespace EfcData.Migrations
                 name: "Comment");
 
             migrationBuilder.DropTable(
-                name: "posts");
+                name: "Posts");
 
             migrationBuilder.DropTable(
-                name: "users");
+                name: "SubForum");
+
+            migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "forums");
         }
     }
 }

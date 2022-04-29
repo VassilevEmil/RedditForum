@@ -4,6 +4,11 @@ using Domain.Contracts;
 using EfcData;
 using FileData.DataAccess;
 
+using (ForumContext ftx = new())
+{
+    ftx.Seed();
+}
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

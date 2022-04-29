@@ -11,13 +11,41 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EfcData.Migrations
 {
     [DbContext(typeof(ForumContext))]
-    [Migration("20220429133254_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220429170918_ForumMigration")]
+    partial class ForumMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
+
+            modelBuilder.Entity("BlazorApp1.Services.SubForum", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Forumid")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OwnedById")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Forumid");
+
+                    b.HasIndex("OwnedById");
+
+                    b.ToTable("SubForum");
+                });
 
             modelBuilder.Entity("Domain.Models.Comment", b =>
                 {
@@ -44,6 +72,16 @@ namespace EfcData.Migrations
                     b.ToTable("Comment");
                 });
 
+            modelBuilder.Entity("Domain.Models.Forum", b =>
+                {
+                    b.Property<string>("id")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
+
+                    b.ToTable("forums");
+                });
+
             modelBuilder.Entity("Domain.Models.Post", b =>
                 {
                     b.Property<string>("Id")
@@ -53,8 +91,14 @@ namespace EfcData.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Forumid")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Header")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SubForumId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("WrittenById")
@@ -65,9 +109,13 @@ namespace EfcData.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Forumid");
+
+                    b.HasIndex("SubForumId");
+
                     b.HasIndex("WrittenById");
 
-                    b.ToTable("posts");
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>
@@ -80,6 +128,9 @@ namespace EfcData.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Forumid")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
@@ -96,7 +147,9 @@ namespace EfcData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.HasIndex("Forumid");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Domain.Models.Vote", b =>
@@ -125,6 +178,19 @@ namespace EfcData.Migrations
                     b.ToTable("Vote");
                 });
 
+            modelBuilder.Entity("BlazorApp1.Services.SubForum", b =>
+                {
+                    b.HasOne("Domain.Models.Forum", null)
+                        .WithMany("SubForums")
+                        .HasForeignKey("Forumid");
+
+                    b.HasOne("Domain.Models.User", "OwnedBy")
+                        .WithMany()
+                        .HasForeignKey("OwnedById");
+
+                    b.Navigation("OwnedBy");
+                });
+
             modelBuilder.Entity("Domain.Models.Comment", b =>
                 {
                     b.HasOne("Domain.Models.Post", null)
@@ -142,11 +208,26 @@ namespace EfcData.Migrations
 
             modelBuilder.Entity("Domain.Models.Post", b =>
                 {
+                    b.HasOne("Domain.Models.Forum", null)
+                        .WithMany("AddPost")
+                        .HasForeignKey("Forumid");
+
+                    b.HasOne("BlazorApp1.Services.SubForum", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("SubForumId");
+
                     b.HasOne("Domain.Models.User", "WrittenBy")
                         .WithMany()
                         .HasForeignKey("WrittenById");
 
                     b.Navigation("WrittenBy");
+                });
+
+            modelBuilder.Entity("Domain.Models.User", b =>
+                {
+                    b.HasOne("Domain.Models.Forum", null)
+                        .WithMany("Users")
+                        .HasForeignKey("Forumid");
                 });
 
             modelBuilder.Entity("Domain.Models.Vote", b =>
@@ -168,9 +249,23 @@ namespace EfcData.Migrations
                     b.Navigation("Voter");
                 });
 
+            modelBuilder.Entity("BlazorApp1.Services.SubForum", b =>
+                {
+                    b.Navigation("Posts");
+                });
+
             modelBuilder.Entity("Domain.Models.Comment", b =>
                 {
                     b.Navigation("Votes");
+                });
+
+            modelBuilder.Entity("Domain.Models.Forum", b =>
+                {
+                    b.Navigation("AddPost");
+
+                    b.Navigation("SubForums");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Domain.Models.Post", b =>

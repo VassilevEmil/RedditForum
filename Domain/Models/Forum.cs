@@ -1,9 +1,13 @@
-﻿using BlazorApp1.Services;
+﻿using System.ComponentModel.DataAnnotations;
+using BlazorApp1.Services;
 
 namespace Domain.Models;
 
 public class Forum
 {
+  //  [Key]
+    [Key]
+    public string id { get; set; } = RandomIDGenerator.Generate(20);
     public ICollection<SubForum> SubForums { get; set; }
     public ICollection<User> Users { get; set; }
     
