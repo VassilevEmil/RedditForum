@@ -1,7 +1,10 @@
-﻿namespace Domain.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Models;
 
 public class Post
 {
+    [Key]
     public string Id { get; set; }
     public string Header { get; set; }
     public string Body { get; set; }

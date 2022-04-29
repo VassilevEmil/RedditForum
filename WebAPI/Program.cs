@@ -1,6 +1,7 @@
 using Application.DAOInterface;
 using Application.Impls;
 using Domain.Contracts;
+using EfcData;
 using FileData.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +18,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserService, UserServiceImpl>();
 builder.Services.AddScoped<IForum, ForumServiceImpl>();
 //file 
-builder.Services.AddScoped<FileContext>();
-builder.Services.AddScoped<IForumDAO, FileDataDAO>();
+builder.Services.AddDbContext<ForumContext>();
+builder.Services.AddScoped<IForumDAO, ForumSqliteDAO>();
 
 var app = builder.Build();
 
